@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{../../webjars/bootstrap/4.1.0/css/bootstrap.min.css}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="/js/validaRegistro.js"></script>
+    <title>Bibliografia cientifica | Registrar investigador</title>
+    <title>Objetos perdidos</title>
+    <style>
+        nav {
+            margin-bottom: 50px;
+        }       
+    </style>
+    <title>Registro</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+                <a th:href="@{/}" class="nav-link">Inicio</a>
+            </li>
+            <li th:if="${session.sesionActiva == 'si' && session.tipo == 'admin'}" class="nav-item">
+                <a th:href="@{/investigador/registro}" class="nav-link">Nuevo investigador</a>
+            </li>
+            <li th:if="${session.sesionActiva == 'si' && session.tipo == 'admin'}" class="nav-item">
+                <a th:href="@{/articulo/registro}" class="nav-link">Nuevo articulo</a>
+            </li>
+            <li th:if="${session.sesionActiva == 'si' && session.tipo == 'admin'}" class="nav-item">
+                <a th:href="@{/articulos/todos}" class="nav-link">Ver articulos</a>
+            </li>
+            <li th:if="${session.sesionActiva == 'si' && session.tipo == 'admin'}" class="nav-item">
+                <a th:href="@{/investigadores/todos}" class="nav-link">Ver investigadores</a>
+            </li>
+            <li th:unless="${session.sesionActiva}" class="nav-item">
+                <a th:href="@{/login}" class="nav-link">Iniciar sesion</a>
+            </li>
+            <li th:if="${session.sesionActiva}" class="nav-item">
+                <a th:href="@{/investigador/logout}" class="nav-link">Salir</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="contenedor-login">
+    <div class="container">
+        <form method="post" action="/artCientifico/registro" id="registro">
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label">Titulo</label>
+                <div class="col-sm-10 rl">
+                    <input class="form-control form-control-lg" placeholder="Titulo" type="text" name="titulo" th:value="${art.titulo}" required  />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label">Palabra clave</label>
+                <div class="col-sm-10 rl">
+                    <input class="form-control form-control-lg" placeholder="palabraClave" type="text" name="palabraClave" th:value="${art.palabraClave}" required  />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label">Palabra clave 2</label>
+                <div class="col-sm-10 rl">
+                    <input class="form-control form-control-lg" placeholder="Palabra clave 2" type="text" name="palabraClave2" th:value="${art.palabraClave2}" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label">Nombre de la revista</label>
+                <div class="col-sm-10 rl">
+                    <input class="form-control form-control-lg" placeholder="Nombre de la revista" type="text" name="nombreRevista" th:value="${art.nombreRevista}" required  />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label">Volumen</label>
+                <div class="col-sm-10 rl">
+                    <input class="form-control form-control-lg" placeholder="Volumen" type="text" name="volumen" th:value="${art.volumen}" required  />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label">Pag&iacute;nas</label>
+                <div class="col-sm-10 rl">
+                    <input class="form-control form-control-lg" placeholder="Paginas" type="text" name="paginas" th:value="${art.paginas}" required  />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label">A&ntilde;o de publicaci&oacute;n</label>
+                <div class="col-sm-10 rl">
+                    <input class="form-control form-control-lg" placeholder="Ano de publicaciona" type="text" name="anoPublicacion" th:value="${art.anoPublicacion}" required  />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label">Investigadores</label>
+                <div class="col-sm-10 rl">
+                    <select>
+                    	<option value=""></option>
+                    	<option th:each="investigadores : ${invests}" th:value="${investigadores.id}" th:text="${investigadores.nombre} + ' ' + ${investigadores.apellido}"></option>                    	
+                    </select>
+                </div>
+            </div>
+            <input type="hidden" name="investigador" th:value="${id}" />
+            <input class="btn btn-primary bttn" type="submit" value="Registrar" />
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{../../webjars/bootstrap/4.1.0/css/bootstrap.min.css}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="/js/validaRegistro.js"></script>
+    <title>Bibliografia cientifica | Registrar investigador</title>
+    <title>Objetos perdidos</title>
+    <style>
+        nav {
+            margin-bottom: 50px;
+        }
+        .error {
+        	color: #FF0000;
+        }
+        .pas {
+        	display: none;
+        }
+        .cor {
+        	display: none;
+        }
+        
+        .rl {
+        	margin-left: 20px;
+        }
+        
+        .bttn {
+        	margin-top: 10px;
+        	margin-bottom: 10px;
+        }
+        
+    </style>
+    <script>
+    	$(document).ready(function() {
+    		var contrasena = $("input[name=contrasena]");
+    		var contrasena2 = $("input[name=contrasena2]");
+    		
+    		
+    		$(".bttn").click(function() {
+    			if(contrasena.val() != contrasena2.val()) {
+    				$(".pas").show("slow");
+    			} else {
+    				$("#registro").submit();
+    			}
+    		});
+    	});
+    </script>
+    <title>Registro</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+                <a th:href="@{/}" class="nav-link">Inicio</a>
+            </li>
+            <li th:if="${session.sesionActiva == 'si' && session.tipo == 'admin'}" class="nav-item">
+                <a th:href="@{/investigador/registro}" class="nav-link">Nuevo investigador</a>
+            </li>
+            <li th:if="${session.sesionActiva == 'si' && session.tipo == 'admin'}" class="nav-item">
+                <a th:href="@{/articulo/registro}" class="nav-link">Nuevo articulo</a>
+            </li>
+            <li th:if="${session.sesionActiva == 'si' && session.tipo == 'admin'}" class="nav-item">
+                <a th:href="@{/articulos/todos}" class="nav-link">Ver articulos</a>
+            </li>
+            <li th:if="${session.sesionActiva == 'si' && session.tipo == 'admin'}" class="nav-item">
+                <a th:href="@{/investigadores/todos}" class="nav-link">Ver investigadores</a>
+            </li>
+            <li th:unless="${session.sesionActiva}" class="nav-item">
+                <a th:href="@{/login}" class="nav-link">Iniciar sesion</a>
+            </li>
+            <li th:if="${session.sesionActiva}" class="nav-item">
+                <a th:href="@{/investigador/logout}" class="nav-link">Salir</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="contenedor-login">
+    <div class="container">
+        <form method="post" action="/investigador/registro" id="registro">
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label">Nombre</label>
+                <div class="col-sm-10 rl">
+                    <input class="form-control form-control-lg" placeholder="Nombre" type="text" name="nombre" th:value="${invest.nombre}" required  />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label">Apellido</label>
+                <div class="col-sm-10 rl">
+                    <input class="form-control form-control-lg" placeholder="Apellido" type="text" name="apellido" th:value="${invest.apellido}" required  />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label">Email</label>
+                <div class="col-sm-10 rl">
+                    <input class="form-control form-control-lg" placeholder="Email" type="email" name="correo" th:value="${invest.correo}" required />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label">Telefono</label>
+                <div class="col-sm-10 rl">
+                    <input class="form-control form-control-lg" placeholder="Telefono" type="text" name="telefono" th:value="${invest.telefono}" required  />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label">Genero</label>
+                <div class="col-sm-10 rl">
+                    <select name="genero" required>
+                    <option ></option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label">Tipo de usuario</label>
+                <div class="col-sm-10 rl">
+                    <select name="tipoUsuario" required>
+                    <option></option>
+                    <option value="investigador">Investigador</option>
+                    <option value="admin">Admin</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label">Contrase&ntilde;a</label>
+                <div class="col-sm-10 rl">
+                    <input class="form-control form-control-lg" placeholder="Contrase&ntilde;a" type="password" name="contrasena" required  />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label">Repetir contrase&ntilde;a</label>
+                <div class="col-sm-10 rl">
+                    <input class="form-control form-control-lg" placeholder="Contrase&ntilde;a" type="password" name="contrasena2" required />
+                </div>
+            </div>
+            <div class="container pas">
+            	<div class="alert alert-danger" role="alert">
+            		<span>Las contrase&ntilde;as no coinciden</span>
+				</div>
+            </div>
+            <div class="container cor">
+            	<div class="alert alert-danger" role="alert">
+            		<span>El correo ya se registro</span>
+				</div>
+            </div>
+            <input type="hidden" name="id" th:value="${invest.id}" />
+            <input class="btn btn-primary bttn" type="button" value="Registrar" />
+        </form>
+    </div>
+</div>
+</body>
+</html>

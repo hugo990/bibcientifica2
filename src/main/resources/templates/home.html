@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.1.0/css/bootstrap.min.css}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <title>Bibliografia cientifica</title>
+    <style>
+        nav {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+                <a th:href="@{/}" class="nav-link">Inicio</a>
+            </li>
+            <li th:if="${session.sesionActiva == 'si' && session.tipo == 'admin'}" class="nav-item">
+                <a th:href="@{/investigador/registro}" class="nav-link">Nuevo investigador</a>
+            </li>
+            <li th:if="${session.sesionActiva == 'si' && session.tipo == 'admin'}" class="nav-item">
+                <a th:href="@{/articulo/registro}" class="nav-link">Nuevo articulo</a>
+            </li>
+            <li th:if="${session.sesionActiva == 'si' && session.tipo == 'admin'}" class="nav-item">
+                <a th:href="@{/articulos/todos}" class="nav-link">Ver articulos</a>
+            </li>
+            <li th:if="${session.sesionActiva == 'si' && session.tipo == 'admin'}" class="nav-item">
+                <a th:href="@{/investigadores/todos}" class="nav-link">Ver investigadores</a>
+            </li>
+            <li th:unless="${session.sesionActiva}" class="nav-item">
+                <a th:href="@{/login}" class="nav-link">Iniciar sesion</a>
+            </li>
+            <li th:if="${session.sesionActiva}" class="nav-item">
+                <a th:href="@{/investigador/logout}" class="nav-link">Salir</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+	<div th:>
+	</div>
+</div>
+</body>
+</html>
