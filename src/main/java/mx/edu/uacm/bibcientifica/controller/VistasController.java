@@ -46,13 +46,15 @@ public class VistasController {
 	 */
 	@Autowired
 	private HttpSession httpSession;
-
+	
 	/**
 	 * Vista principal
 	 * @return
 	 */
 	@GetMapping("/")
-	public ModelAndView mostrarIndex() {
+	public ModelAndView mostrarIndex(Map<String, Object> model) {
+		List<Investigador> investigadores = investigadorService.obtenerInvestigadores();
+		model.put("invest", investigadores);
 		return new ModelAndView("home");
 	}
 	

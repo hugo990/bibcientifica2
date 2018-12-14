@@ -44,7 +44,8 @@
     </div>
 </nav>
 <div class="container">
-	<div th:>
+	<div th:each="investigador : ${invest}">
+		<p th:text="${investigador.nombre}"></p>
 	</div>
 </div>
 </body>
